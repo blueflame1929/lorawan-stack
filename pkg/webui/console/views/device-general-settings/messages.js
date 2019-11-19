@@ -34,6 +34,7 @@ const messages = defineMessages({
   deleteSuccess: 'The end device has been deleted successfully',
   deleteFailure: 'End device deletion failed',
   activationModeUnknown: 'Activation mode unknown because Network Server is not available',
+  notInCluster: 'Not registered in this cluster',
 })
 
 export default messages

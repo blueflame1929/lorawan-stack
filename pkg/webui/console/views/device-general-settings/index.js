@@ -21,12 +21,12 @@ import bind from 'autobind-decorator'
 
 import sharedMessages from '../../../lib/shared-messages'
 import diff from '../../../lib/diff'
-import DeviceDataForm from '../../components/device-data-form'
 import Breadcrumb from '../../../components/breadcrumbs/breadcrumb'
 import { withBreadcrumb } from '../../../components/breadcrumbs/context'
 import IntlHelmet from '../../../lib/components/intl-helmet'
 import PropTypes from '../../../lib/prop-types'
 import api from '../../api'
+import toast from '../../../components/toast'
 
 import { updateDevice } from '../../store/actions/device'
 import { attachPromise } from '../../store/actions/lib'
@@ -61,7 +61,10 @@ const getComponentBaseUrl = config => {
     device: selectSelectedDevice(state),
     devId: selectSelectedDeviceId(state),
     appId: selectSelectedApplicationId(state),
+    isConfig: selectIsConfig(),
+    asConfig: selectAsConfig(),
     jsConfig: selectJsConfig(),
+    nsConfig: selectNsConfig(),
   }),
   dispatch => ({
     ...bindActionCreators({ updateDevice: attachPromise(updateDevice) }, dispatch),
@@ -87,14 +90,13 @@ const getComponentBaseUrl = config => {
 export default class DeviceGeneralSettings extends React.Component {
   static propTypes = {
     appId: PropTypes.string.isRequired,
+    asConfig: PropTypes.stackComponent.isRequired,
     device: PropTypes.device.isRequired,
+    isConfig: PropTypes.stackComponent.isRequired,
     jsConfig: PropTypes.stackComponent.isRequired,
+    nsConfig: PropTypes.stackComponent.isRequired,
     onDeleteSuccess: PropTypes.func.isRequired,
     updateDevice: PropTypes.func.isRequired,
-  }
-
-  state = {
-    error: '',
   }
 
   @bind
@@ -105,6 +107,7 @@ export default class DeviceGeneralSettings extends React.Component {
     const {
       ids: { device_id: deviceId },
     } = device
+
     const changed = diff(device, updatedDevice, ['updated_at', 'created_at'])
 
     return updateDevice(appId, deviceId, changed)
@@ -239,8 +242,7 @@ export default class DeviceGeneralSettings extends React.Component {
               <JoinServerForm
                 device={device}
                 onSubmit={this.handleSubmit}
-                asConfig={asConfig}
-                nsConfig={nsConfig}
+                onSubmitSuccess={this.handleSubmitSuccess}
               />
             </Collapse>
             <Collapse title={m.consoleTitle} description={m.consoleDescription}>
