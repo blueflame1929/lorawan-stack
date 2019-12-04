@@ -203,15 +203,15 @@ const IdentityServerForm = React.memo(props => {
         component={Input}
       />
       <Form.Field
-        title={sharedMessages.applicationServerAddress}
-        placeholder={sharedMessages.addressPlaceholder}
-        name="application_server_address"
-        component={Input}
-      />
-      <Form.Field
         title={sharedMessages.networkServerAddress}
         placeholder={sharedMessages.addressPlaceholder}
         name="network_server_address"
+        component={Input}
+      />
+      <Form.Field
+        title={sharedMessages.applicationServerAddress}
+        placeholder={sharedMessages.addressPlaceholder}
+        name="application_server_address"
         component={Input}
       />
       {isOTAA && (
