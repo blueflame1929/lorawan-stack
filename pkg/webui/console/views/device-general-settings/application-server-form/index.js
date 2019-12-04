@@ -99,6 +99,7 @@ const ApplicationServerForm = React.memo(props => {
         name="session.dev_addr"
         placeholder={m.leaveBlankPlaceholder}
         description={m.deviceAddrDescription}
+        disabled
         required
       />
       <Form.Field
