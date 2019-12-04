@@ -58,7 +58,12 @@ const clean = function(str) {
 }
 
 const Placeholder = function(props) {
-  const { min = 0, max = 256, value = '', placeholder, showPerChar = false } = props
+  const { min = 0, max = 256, placeholder, showPerChar = false } = props
+  let { value } = props
+
+  if (value === null) {
+    value = ''
+  }
 
   if (placeholder || Boolean(value)) {
     return null
