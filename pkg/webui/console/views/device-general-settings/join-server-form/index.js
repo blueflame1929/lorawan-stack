@@ -122,15 +122,15 @@ const JoinServerForm = React.memo(props => {
   }
 
   const sameAsBaseUrl = getComponentBaseUrl(asConfig) === device.application_server_address
-  let asServerIDPlaceholder = m.asServerIDPlaceholder
-  let asServerKekLabelPlaceholder = m.asServerKekLabelPlaceholder
+  let asServerIDPlaceholder
+  let asServerKekLabelPlaceholder
   if (!asConfig.enabled || !sameAsBaseUrl) {
     asServerIDPlaceholder = m.notInCluster
     asServerKekLabelPlaceholder = m.asNotInCluster
   }
 
   const sameNsBaseUrl = getComponentBaseUrl(nsConfig) === device.network_server_address
-  let nsServerKekLabelPlaceholder = m.asServerKekLabelPlaceholder
+  let nsServerKekLabelPlaceholder
   if (!nsConfig.enabled || !sameNsBaseUrl) {
     nsServerKekLabelPlaceholder = m.asNotInCluster
   }
@@ -144,16 +144,6 @@ const JoinServerForm = React.memo(props => {
       error={error}
       enableReinitialize
     >
-      <Form.Field
-        title={m.netID}
-        description={m.netIDDescription}
-        name="net_id"
-        type="byte"
-        min={3}
-        max={3}
-        component={Input}
-        disabled={externalJs}
-      />
       <Form.Field
         title={sharedMessages.appKey}
         name="root_keys.app_key.key"
@@ -188,6 +178,15 @@ const JoinServerForm = React.memo(props => {
           disabled={externalJs}
         />
       )}
+      <Form.Field
+        title={m.homeNetID}
+        name="net_id"
+        type="byte"
+        min={3}
+        max={3}
+        component={Input}
+        disabled={externalJs}
+      />
       <Form.Field
         title={m.asServerID}
         name="application_server_id"
