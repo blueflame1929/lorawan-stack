@@ -48,6 +48,8 @@ import NetworkServerForm from './network-server-form'
 import DeleteSection from './delete-section'
 import Collapse from './collapse'
 
+import style from './device-general-settings.styl'
+
 const getComponentBaseUrl = config => {
   try {
     const { base_url } = config
@@ -219,7 +221,7 @@ export default class DeviceGeneralSettings extends React.Component {
       <Container>
         <IntlHelmet title={sharedMessages.generalSettings} />
         <Row>
-          <Col lg={8} md={12}>
+          <Col lg={8} md={12} className={style.container}>
             <Collapse
               title={m.isTitle}
               description={isDescription}
