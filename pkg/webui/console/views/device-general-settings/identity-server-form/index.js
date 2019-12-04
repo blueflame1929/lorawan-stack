@@ -51,6 +51,7 @@ const IdentityServerForm = React.memo(props => {
         nwk_key: {},
         app_key: {},
       },
+      supports_join,
     } = device
 
     return {
@@ -61,6 +62,7 @@ const IdentityServerForm = React.memo(props => {
       _lorawan_version: lorawan_version,
       join_server_address: extJs ? undefined : join_server_address,
       _external_js: extJs,
+      _supports_join: supports_join,
       ids,
       // JS form fields that should be reset when provisioning devices on an external JS.
       root_keys,
@@ -112,7 +114,11 @@ const IdentityServerForm = React.memo(props => {
   const onFormSubmit = React.useCallback(
     async (values, { resetForm, setSubmitting }) => {
       const castedValues = validationSchema.cast(values)
-      const updatedValues = diff(initialValues, castedValues, ['_external_js', '_lorawan_version'])
+      const updatedValues = diff(initialValues, castedValues, [
+        '_external_js',
+        '_lorawan_version',
+        '_supports_join',
+      ])
 
       setError('')
       try {
@@ -208,20 +214,24 @@ const IdentityServerForm = React.memo(props => {
         name="network_server_address"
         component={Input}
       />
-      <Form.Field
-        title={m.externalJoinServer}
-        description={m.externalJoinServerDescription}
-        name="_external_js"
-        onChange={handleExternalJsChange}
-        component={Checkbox}
-      />
-      <Form.Field
-        title={sharedMessages.joinServerAddress}
-        placeholder={joinServerAddressPlaceholder}
-        name="join_server_address"
-        component={Input}
-        disabled={!isOTAA || externalJs}
-      />
+      {isOTAA && (
+        <>
+          <Form.Field
+            title={m.externalJoinServer}
+            description={m.externalJoinServerDescription}
+            name="_external_js"
+            onChange={handleExternalJsChange}
+            component={Checkbox}
+          />
+          <Form.Field
+            title={sharedMessages.joinServerAddress}
+            placeholder={joinServerAddressPlaceholder}
+            name="join_server_address"
+            component={Input}
+            disabled={!isOTAA || externalJs}
+          />
+        </>
+      )}
       <SubmitBar>
         <Form.Submit component={SubmitButton} message={sharedMessages.saveChanges} />
       </SubmitBar>

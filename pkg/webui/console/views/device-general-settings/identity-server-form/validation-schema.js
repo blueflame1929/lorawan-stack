@@ -43,9 +43,14 @@ const validationSchema = Yup.object().shape({
   ),
   _external_js: Yup.boolean(),
   join_server_address: Yup.string().matches(addressRegexp, sharedMessages.validateAddressFormat),
+  resets_join_nonces: Yup.bool().when('_supports_join', {
+    is: true,
+    then: schema => schema,
+    otherwise: schema => schema.strip(),
+  }),
   root_keys: Yup.object().when(
-    ['_external_js', '_lorawan_version'],
-    (externalJs, version, schema) => {
+    ['_external_js', '_lorawan_version', '_supports_join'],
+    (externalJs, version, supportsJoin, schema) => {
       const strippedSchema = Yup.object().strip()
       const keySchema = Yup.lazy(() => {
         return !externalJs
@@ -57,6 +62,10 @@ const validationSchema = Yup.object().shape({
             })
           : Yup.object().strip()
       })
+
+      if (!supportsJoin) {
+        return schema.strip()
+      }
 
       if (externalJs) {
         return schema.shape({
