@@ -12,16 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-.section
+.section:not(:last-child)
   border-normal('bottom')
 
 .header
   display: block
   position: relative
   padding-right: $ls.xl
+  padding-top: $ls.s
+  padding-bottom: $ls.s
 
   .title
+    margin-top:0
     margin-bottom: $cs.xs
+
+  .description
+    one-liner()
 
 .content
   display: block
@@ -31,5 +37,3 @@
   right: 0
   top: 50%
   transform: translateY(-50%)
-
-
