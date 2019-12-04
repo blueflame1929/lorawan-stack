@@ -37,10 +37,13 @@ const getComponentBaseUrl = config => {
 }
 
 // The Join Server can store end device fields while not exposing the root keys. This means
-// that the `root_keys` object is present while `root_keys.nwk_key` == nil or `root_keys.app_key == nil`
-// must hold. See https://github.com/TheThingsNetwork/lorawan-stack/issues/1473
-const isNwkKeyHidden = ({ root_keys }) => Boolean(root_keys) && !Boolean(root_keys.nwk_key)
-const isAppKeyHidden = ({ root_keys }) => Boolean(root_keys) && !Boolean(root_keys.app_key)
+// that the `root_keys` object is present, same for `root_keys.nwk_key` and `root_keys.app_key`,
+// while `root_keys.nwk_key.key` == nil or `root_keys.app_key.key == nil` must hold.
+// See https://github.com/TheThingsNetwork/lorawan-stack/issues/1473
+const isNwkKeyHidden = ({ root_keys }) =>
+  Boolean(root_keys) && Boolean(root_keys.nwk_key) && !Boolean(root_keys.nwk_key.key)
+const isAppKeyHidden = ({ root_keys }) =>
+  Boolean(root_keys) && Boolean(root_keys.app_key) && !Boolean(root_keys.app_key.key)
 
 const JoinServerForm = React.memo(props => {
   const { device, onSubmit, asConfig, nsConfig } = props
