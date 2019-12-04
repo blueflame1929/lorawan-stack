@@ -46,7 +46,7 @@ const isAppKeyHidden = ({ root_keys }) =>
   Boolean(root_keys) && Boolean(root_keys.app_key) && !Boolean(root_keys.app_key.key)
 
 const JoinServerForm = React.memo(props => {
-  const { device, onSubmit, asConfig, nsConfig } = props
+  const { device, onSubmit, onSubmitSuccess, asConfig, nsConfig } = props
 
   const isNewLorawanVersion = parseLorawanMacVersion(device.lorawan_version) >= 110
   const externalJs = hasExternalJs(device)
@@ -99,12 +99,13 @@ const JoinServerForm = React.memo(props => {
       try {
         await onSubmit(updatedValues)
         resetForm(castedValues)
+        onSubmitSuccess()
       } catch (err) {
         setSubmitting(false)
         setError(err)
       }
     },
-    [initialValues, onSubmit],
+    [initialValues, onSubmit, onSubmitSuccess],
   )
 
   const nwkKeyHidden = isNwkKeyHidden(device)
@@ -234,6 +235,7 @@ JoinServerForm.propTypes = {
   device: PropTypes.device.isRequired,
   nsConfig: PropTypes.stackComponent.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  onSubmitSuccess: PropTypes.func.isRequired,
 }
 
 export default JoinServerForm
