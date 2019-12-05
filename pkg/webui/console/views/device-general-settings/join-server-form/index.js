@@ -136,7 +136,7 @@ const JoinServerForm = React.memo(props => {
   const sameNsBaseUrl = getComponentBaseUrl(nsConfig) === device.network_server_address
   let nsServerKekLabelPlaceholder
   if (!nsConfig.enabled || !sameNsBaseUrl) {
-    nsServerKekLabelPlaceholder = m.asNotInCluster
+    nsServerKekLabelPlaceholder = m.nsNotInCluster
   }
 
   return (
