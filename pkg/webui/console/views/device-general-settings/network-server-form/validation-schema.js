@@ -69,7 +69,7 @@ const validationSchema = Yup.object().shape({
     return schema.strip()
   }),
   mac_settings: Yup.object().when(['_activation_mode'], (mode, schema) => {
-    if (mode === 'multicast') {
+    if (mode === 'abp') {
       return schema.shape({
         resets_f_cnt: Yup.boolean(),
       })

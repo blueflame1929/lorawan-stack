@@ -54,13 +54,13 @@ const NetworkServerForm = React.memo(props => {
   const { device, onSubmit, onSubmitSuccess } = props
 
   const isABP = isDeviceABP(device)
-  const isMulticast = isDeviceMulticast(device.multicast)
+  const isMulticast = isDeviceMulticast(device)
 
   const formRef = React.useRef(null)
 
   const [error, setError] = React.useState('')
   const [resetsFCnt, setResetsFCnt] = React.useState(
-    (isMulticast && device.mac_settings.resets_f_cnt) || false,
+    (isABP && device.mac_settings && device.mac_settings.resets_f_cnt) || false,
   )
   const [lorawanVersion, setLorawanVersion] = React.useState(
     parseLorawanMacVersion(device.lorawan_version),
@@ -219,7 +219,7 @@ const NetworkServerForm = React.memo(props => {
         <Radio label={m.abp} value={ACTIVATION_MODES.ABP} />
         <Radio label={m.multicast} value={ACTIVATION_MODES.MULTICAST} />
       </Form.Field>
-      {isABP && (
+      {(isABP || isMulticast) && (
         <>
           <DevAddrInput
             title={sharedMessages.devAddr}
