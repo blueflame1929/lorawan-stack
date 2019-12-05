@@ -50,10 +50,14 @@ export const parseLorawanMacVersion = strMacVersion => {
 
 /**
  * Returns whether the device is OTAA.
+ * Note: device type is mainly derived based on the `supports_join` and `multicast` fields.
+ * However, in cases when NS is not available, `root_keys` can be used to determine whether
+ * the device is OTAA.
  * @param {Object} device - The device object.
  * @returns {boolean} `true` if the device is OTAA, `false` otherwise
  */
-export const isDeviceOTAA = device => Boolean(device) && Boolean(device.supports_join)
+export const isDeviceOTAA = device =>
+  Boolean(device) && (Boolean(device.supports_join) || Boolean(device.root_keys))
 
 /**
  * Returns whether the device is ABP.
