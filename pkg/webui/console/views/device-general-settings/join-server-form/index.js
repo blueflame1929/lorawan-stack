@@ -155,7 +155,7 @@ const JoinServerForm = React.memo(props => {
         min={16}
         max={16}
         placeholder={appKeyPlaceholder}
-        description={m.appKeyDescription}
+        description={isNewLorawanVersion ? m.appKeyNewDescription : m.appKeyDescription}
         component={Input}
         disabled={externalJs || appKeyHidden}
       />

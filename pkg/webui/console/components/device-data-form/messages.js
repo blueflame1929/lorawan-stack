@@ -21,6 +21,8 @@ export default defineMessages({
   appEUIDescription:
     'The AppEUI is a global application ID that uniquely identifies the owner of the ­device',
   appKeyDescription:
+    'The root key to derive session keys to secure communication between the device and the application',
+  appKeyNewDescription:
     'The root key to derive the application session key to secure communication between the device and the application',
   appSKeyDescription: 'Application Session Key',
   asNotInCluster: 'AS is not in this cluster',
