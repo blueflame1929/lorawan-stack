@@ -48,7 +48,8 @@ const isAppKeyHidden = ({ root_keys }) =>
 const JoinServerForm = React.memo(props => {
   const { device, onSubmit, onSubmitSuccess, asConfig, nsConfig } = props
 
-  const isNewLorawanVersion = parseLorawanMacVersion(device.lorawan_version) >= 110
+  // Fallback to 1.1.0 in case NS is not available and lorawan version is not set present.
+  const isNewLorawanVersion = parseLorawanMacVersion(device.lorawan_version || '1.1.0') >= 110
   const externalJs = hasExternalJs(device)
 
   const formRef = React.useRef(null)
@@ -63,7 +64,7 @@ const JoinServerForm = React.memo(props => {
         app_key: {},
       },
       resets_join_nonces,
-      lorawan_version,
+      lorawan_version = '1.1.0',
       net_id = '',
       application_server_id = '',
       application_server_kek_label = '',

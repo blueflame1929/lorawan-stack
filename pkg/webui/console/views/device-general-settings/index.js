@@ -204,17 +204,14 @@ export default class DeviceGeneralSettings extends React.Component {
     // 1. Disable the section if JS is not in cluster.
     // 2. Disable the section if the device is ABP/Multicast, since JS does not store ABP/Multicast
     // devices.
-    // 3. Disable the section if NS is not in cluster, since activation mode is unknown.
-    // 4. Disable the seciton if `join_server_address` is not equal to the cluster JS address
-    // 5. Disable the seciton if an external JS is used
+    // 3. Disable the seciton if `join_server_address` is not equal to the cluster JS address
+    // 4. Disable the seciton if an external JS is used
     const sameJsAddress = getComponentBaseUrl(jsConfig) === device.join_server_address
     const externalJs = hasExternalJs(device)
-    const jsDisabled = !jsEnabled || !isOTAA || !nsEnabled || !sameJsAddress || externalJs
+    const jsDisabled = !jsEnabled || !isOTAA || !sameJsAddress || externalJs
     let jsDescription = m.jsDescription
     if (!jsEnabled) {
       jsDescription = m.jsDescriptionMissing
-    } else if (!nsEnabled) {
-      jsDescription = m.activationModeUnknown
     } else if (!isOTAA) {
       jsDescription = m.jsDescriptionOTAA
     } else if (!sameJsAddress || externalJs) {
