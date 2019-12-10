@@ -28,14 +28,6 @@ import sharedMessages from '../../../../lib/shared-messages'
 import { parseLorawanMacVersion, hasExternalJs } from '../utils'
 import validationSchema from './validation-schema'
 
-const getComponentBaseUrl = config => {
-  try {
-    const { base_url } = config
-
-    return new URL(base_url).hostname
-  } catch (e) {}
-}
-
 // The Join Server can store end device fields while not exposing the root keys. This means
 // that the `root_keys` object is present, same for `root_keys.nwk_key` and `root_keys.app_key`,
 // while `root_keys.nwk_key.key` == nil or `root_keys.app_key.key == nil` must hold.
@@ -46,7 +38,7 @@ const isAppKeyHidden = ({ root_keys }) =>
   Boolean(root_keys) && Boolean(root_keys.app_key) && !Boolean(root_keys.app_key.key)
 
 const JoinServerForm = React.memo(props => {
-  const { device, onSubmit, onSubmitSuccess, asConfig, nsConfig } = props
+  const { device, onSubmit, onSubmitSuccess } = props
 
   // Fallback to 1.1.0 in case NS is not available and lorawan version is not set present.
   const isNewLorawanVersion = parseLorawanMacVersion(device.lorawan_version || '1.1.0') >= 110
@@ -126,20 +118,6 @@ const JoinServerForm = React.memo(props => {
     nwkKeyPlaceholder = m.unexposed
   }
 
-  const sameAsBaseUrl = getComponentBaseUrl(asConfig) === device.application_server_address
-  let asServerIDPlaceholder
-  let asServerKekLabelPlaceholder
-  if (!asConfig.enabled || !sameAsBaseUrl) {
-    asServerIDPlaceholder = m.notInCluster
-    asServerKekLabelPlaceholder = m.asNotInCluster
-  }
-
-  const sameNsBaseUrl = getComponentBaseUrl(nsConfig) === device.network_server_address
-  let nsServerKekLabelPlaceholder
-  if (!nsConfig.enabled || !sameNsBaseUrl) {
-    nsServerKekLabelPlaceholder = m.nsNotInCluster
-  }
-
   return (
     <Form
       validationSchema={validationSchema}
@@ -196,25 +174,22 @@ const JoinServerForm = React.memo(props => {
         title={m.asServerID}
         name="application_server_id"
         description={m.asServerIDDescription}
-        placeholder={asServerIDPlaceholder}
         component={Input}
-        disabled={!sameAsBaseUrl || externalJs}
+        disabled={externalJs}
       />
       <Form.Field
         title={m.asServerKekLabel}
         name="application_server_kek_label"
         description={m.asServerKekLabelDescription}
-        placeholder={asServerKekLabelPlaceholder}
         component={Input}
-        disabled={!sameAsBaseUrl || externalJs}
+        disabled={externalJs}
       />
       <Form.Field
         title={m.nsServerKekLabel}
         name="network_server_kek_label"
         description={m.nsServerKekLabelDescription}
-        placeholder={nsServerKekLabelPlaceholder}
         component={Input}
-        disabled={!sameNsBaseUrl || externalJs}
+        disabled={externalJs}
       />
       <Form.Field
         title={sharedMessages.macVersion}
@@ -232,9 +207,7 @@ const JoinServerForm = React.memo(props => {
 })
 
 JoinServerForm.propTypes = {
-  asConfig: PropTypes.stackComponent.isRequired,
   device: PropTypes.device.isRequired,
-  nsConfig: PropTypes.stackComponent.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onSubmitSuccess: PropTypes.func.isRequired,
 }

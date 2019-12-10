@@ -25,7 +25,6 @@ export default defineMessages({
   appKeyNewDescription:
     'The root key to derive the application session key to secure communication between the device and the application',
   appSKeyDescription: 'Application Session Key',
-  asNotInCluster: 'AS is not in this cluster',
   asServerID: 'Application Server ID',
   asServerIDDescription: 'The AS-ID of the Application Server to use',
   asServerKekLabel: 'Application Server KEK Label',
@@ -49,7 +48,6 @@ export default defineMessages({
   joinEUIDescription: 'JoinEUI identifies the Join Server',
   leaveBlankPlaceholder: 'Leave blank to generate automatically',
   multicast: 'Multicast',
-  nsNotInCluster: 'NS is not in this cluster',
   nsServerKekLabel: 'Network Server KEK Label',
   nsServerKekLabelDescription:
     'The KEK label of the Network Server to use for wrapping the network session key',
