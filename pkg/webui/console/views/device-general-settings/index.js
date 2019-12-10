@@ -178,6 +178,7 @@ export default class DeviceGeneralSettings extends React.Component {
     const { enabled: jsEnabled } = jsConfig
     const { enabled: nsEnabled } = nsConfig
 
+    // 1. Disable the section if IS is not in cluster.
     const isDisabled = !isEnabled
     let isDescription = m.isDescription
     if (isDisabled) {
