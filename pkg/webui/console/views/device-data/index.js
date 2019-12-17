@@ -25,11 +25,12 @@ import DeviceEvents from '../../containers/device-events'
 
 import { selectSelectedDevice, selectSelectedDeviceId } from '../../store/selectors/devices'
 
-@connect(function({ device, application }, props) {
+@connect(function(state, props) {
+  const device = selectSelectedDevice(state)
   return {
-    device: device.device,
-    devId: getDeviceId(device.device),
-    devIds: device.device && device.device.ids,
+    device,
+    devId: selectSelectedDeviceId(state),
+    devIds: device && device.ids,
   }
 })
 @withBreadcrumb('device.single.data', function(props) {

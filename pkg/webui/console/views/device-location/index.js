@@ -68,9 +68,9 @@ const getRegistryLocation = function(locations) {
 
 @connect(
   state => ({
-    device: state.device.device,
+    device: selectSelectedDevice(state),
     appId: selectSelectedApplicationId(state),
-    devId: getDeviceId(state.device.device),
+    devId: selectSelectedDeviceId(state),
   }),
   { updateDevice: attachPromise(updateDevice) },
 )

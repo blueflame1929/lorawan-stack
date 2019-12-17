@@ -34,6 +34,22 @@ const device = function(state = {}, device) {
 
 const devices = function(state = defaultState, { type, payload }) {
   switch (type) {
+    case GET_DEV:
+      return {
+        ...state,
+        selectedDevice: payload.deviceId,
+      }
+    case UPDATE_DEV_SUCCESS:
+    case GET_DEV_SUCCESS:
+      const id = getDeviceId(payload)
+
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [id]: device(state.entities[id], payload),
+        },
+      }
     case GET_DEVICES_LIST_SUCCESS:
       const entities = payload.entities.reduce(
         function(acc, dev) {
