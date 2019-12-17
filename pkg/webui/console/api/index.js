@@ -146,6 +146,7 @@ export default {
   },
   devices: {
     list: ttnClient.Applications.Devices.getAll.bind(ttnClient.Applications.Devices),
+    search: ttnClient.Applications.Devices.search.bind(ttnClient.Applications.Devices),
   },
   device: {
     get: ttnClient.Applications.Devices.getById.bind(ttnClient.Applications.Devices),
@@ -163,6 +164,7 @@ export default {
   },
   gateways: {
     list: ttnClient.Gateways.getAll.bind(ttnClient.Gateways),
+    search: ttnClient.Gateways.search.bind(ttnClient.Gateways),
   },
   gateway: {
     get: ttnClient.Gateways.getById.bind(ttnClient.Gateways),
@@ -212,6 +214,7 @@ export default {
   },
   organizations: {
     list: ttnClient.Organizations.getAll.bind(ttnClient.Organizations),
+    search: ttnClient.Organizations.search.bind(ttnClient.Organizations),
     create: ttnClient.Organizations.create.bind(ttnClient.Organizations),
   },
   organization: {
