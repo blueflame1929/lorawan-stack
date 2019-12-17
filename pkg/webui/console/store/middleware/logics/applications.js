@@ -76,7 +76,6 @@ const getApplicationsLogic = createRequestLogic({
             page,
             limit,
             id_contains: query,
-            name_contains: query,
           },
           selectors,
         )
