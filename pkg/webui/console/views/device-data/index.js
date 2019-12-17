@@ -23,7 +23,7 @@ import Breadcrumb from '../../../components/breadcrumbs/breadcrumb'
 import { withBreadcrumb } from '../../../components/breadcrumbs/context'
 import DeviceEvents from '../../containers/device-events'
 
-import { getDeviceId } from '../../../lib/selectors/id'
+import { selectSelectedDevice, selectSelectedDeviceId } from '../../store/selectors/devices'
 
 @connect(function({ device, application }, props) {
   return {
