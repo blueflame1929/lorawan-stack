@@ -12,20 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { getDeviceId } from '../../../lib/selectors/id'
 import { GET_DEVICES_LIST_SUCCESS } from '../actions/devices'
 
 const defaultState = {
-  devices: [],
-  totalCount: undefined,
+  entities: {},
+  selectedDevice: undefined,
+}
+
+const device = function(state = {}, device) {
+  return {
+    ...state,
+    ...device,
+  }
 }
 
 const devices = function(state = defaultState, { type, payload }) {
   switch (type) {
     case GET_DEVICES_LIST_SUCCESS:
+      const entities = payload.entities.reduce(
+        function(acc, dev) {
+          const id = getDeviceId(dev)
+
+          acc[id] = device(acc[id], dev)
+          return acc
+        },
+        { ...state.entities },
+      )
+
       return {
         ...state,
-        devices: payload.devices,
-        totalCount: payload.totalCount,
+        entities,
       }
     default:
       return state

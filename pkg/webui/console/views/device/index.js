@@ -37,7 +37,7 @@ import { selectSelectedApplicationId } from '../../store/selectors/applications'
 import {
   selectSelectedDevice,
   selectDeviceFetching,
-  selectGetDeviceError,
+  selectDeviceError,
 } from '../../store/selectors/device'
 
 import style from './device.styl'
@@ -53,7 +53,7 @@ import style from './device.styl'
       appId,
       device,
       fetching: selectDeviceFetching(state),
-      error: selectGetDeviceError(state),
+      error: selectDeviceError(state),
     }
   },
   dispatch => ({
