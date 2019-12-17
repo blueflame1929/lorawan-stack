@@ -13,7 +13,12 @@
 // limitations under the License.
 
 import { getDeviceId } from '../../../lib/selectors/id'
-import { GET_DEVICES_LIST_SUCCESS } from '../actions/devices'
+import {
+  GET_DEV,
+  GET_DEVICES_LIST_SUCCESS,
+  GET_DEV_SUCCESS,
+  UPDATE_DEV_SUCCESS,
+} from '../actions/devices'
 
 const defaultState = {
   entities: {},
