@@ -21,11 +21,10 @@ import {
   selectApplicationCollaboratorsFetching,
   selectApplicationApiKeysTotalCount,
   selectApplicationApiKeysFetching,
-  selectSelectedApplicationDevicesTotalCount,
   selectApplicationLinkIndicator,
-  selectSelectedApplicationDevicesFetching,
   selectApplicationLinkFetching,
 } from '../../store/selectors/applications'
+import { selectDevicesTotalCount, selectDevicesFetching } from '../../store/selectors/device'
 import {
   getApplicationCollaboratorsList,
   getApplicationApiKeysList,
@@ -36,7 +35,7 @@ const mapStateToProps = (state, props) => {
   const appId = selectSelectedApplicationId(state)
   const collaboratorsTotalCount = selectApplicationCollaboratorsTotalCount(state, { id: appId })
   const apiKeysTotalCount = selectApplicationApiKeysTotalCount(state, { id: appId })
-  const devicesTotalCount = selectSelectedApplicationDevicesTotalCount(state)
+  const devicesTotalCount = selectDevicesTotalCount(state)
 
   return {
     appId,
@@ -50,7 +49,7 @@ const mapStateToProps = (state, props) => {
       apiKeysTotalCount === undefined ||
       devicesTotalCount === undefined ||
       selectApplicationLinkFetching(state) ||
-      selectSelectedApplicationDevicesFetching(state) ||
+      selectDevicesFetching(state) ||
       selectApplicationApiKeysFetching(state) ||
       selectApplicationCollaboratorsFetching(state),
   }
