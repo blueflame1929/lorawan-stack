@@ -14,23 +14,20 @@
 
 import { connect } from 'react-redux'
 
-import {
-  getOrganizationCollaboratorsList,
-  getOrganizationApiKeysList,
-} from '../../store/actions/organizations'
+import { getOrganizationCollaboratorsList } from '../../store/actions/organizations'
+import { getApiKeysList } from '../../store/actions/api-keys'
 import {
   selectSelectedOrganization,
   selectSelectedOrganizationId,
   selectOrganizationCollaboratorsTotalCount,
-  selectOrganizationApiKeysTotalCount,
-  selectOrganizationApiKeysFetching,
   selectOrganizationCollaboratorsFetching,
 } from '../../store/selectors/organizations'
+import { selectApiKeysTotalCount, selectApiKeysFetching } from '../../store/selectors/api-keys'
 
 const mapStateToProps = state => {
   const orgId = selectSelectedOrganizationId(state)
   const collaboratorsTotalCount = selectOrganizationCollaboratorsTotalCount(state, { id: orgId })
-  const apiKeysTotalCount = selectOrganizationApiKeysTotalCount(state, { id: orgId })
+  const apiKeysTotalCount = selectApiKeysTotalCount(state)
 
   return {
     orgId,
@@ -40,7 +37,7 @@ const mapStateToProps = state => {
     statusBarFetching:
       collaboratorsTotalCount === undefined ||
       apiKeysTotalCount === undefined ||
-      selectOrganizationApiKeysFetching(state) ||
+      selectApiKeysFetching(state) ||
       selectOrganizationCollaboratorsFetching(state),
   }
 }
@@ -48,7 +45,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   loadData(orgId) {
     dispatch(getOrganizationCollaboratorsList(orgId))
-    dispatch(getOrganizationApiKeysList(orgId))
+    dispatch(getApiKeysList('organization', orgId))
   },
 })
 

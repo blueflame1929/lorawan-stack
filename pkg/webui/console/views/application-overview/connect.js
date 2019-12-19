@@ -19,22 +19,19 @@ import {
   selectSelectedApplicationId,
   selectApplicationCollaboratorsTotalCount,
   selectApplicationCollaboratorsFetching,
-  selectApplicationApiKeysTotalCount,
-  selectApplicationApiKeysFetching,
   selectApplicationLinkIndicator,
   selectApplicationLinkFetching,
 } from '../../store/selectors/applications'
+import { selectApiKeysTotalCount, selectApiKeysFetching } from '../../store/selectors/api-keys'
 import { selectDevicesTotalCount, selectDevicesFetching } from '../../store/selectors/devices'
-import {
-  getApplicationCollaboratorsList,
-  getApplicationApiKeysList,
-} from '../../store/actions/applications'
+import { getApplicationCollaboratorsList } from '../../store/actions/applications'
+import { getApiKeysList } from '../../store/actions/api-keys'
 import { getApplicationLink } from '../../store/actions/link'
 
 const mapStateToProps = (state, props) => {
   const appId = selectSelectedApplicationId(state)
   const collaboratorsTotalCount = selectApplicationCollaboratorsTotalCount(state, { id: appId })
-  const apiKeysTotalCount = selectApplicationApiKeysTotalCount(state, { id: appId })
+  const apiKeysTotalCount = selectApiKeysTotalCount(state)
   const devicesTotalCount = selectDevicesTotalCount(state)
 
   return {
@@ -50,7 +47,7 @@ const mapStateToProps = (state, props) => {
       devicesTotalCount === undefined ||
       selectApplicationLinkFetching(state) ||
       selectDevicesFetching(state) ||
-      selectApplicationApiKeysFetching(state) ||
+      selectApiKeysFetching(state) ||
       selectApplicationCollaboratorsFetching(state),
   }
 }
@@ -58,7 +55,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = dispatch => ({
   loadData(appId) {
     dispatch(getApplicationCollaboratorsList(appId))
-    dispatch(getApplicationApiKeysList(appId))
+    dispatch(getApiKeysList('application', appId))
     dispatch(getApplicationLink(appId))
   },
 })

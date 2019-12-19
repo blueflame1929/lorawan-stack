@@ -14,20 +14,20 @@
 
 import { connect } from 'react-redux'
 
-import { getGatewayCollaboratorsList, getGatewayApiKeysList } from '../../store/actions/gateways'
+import { getGatewayCollaboratorsList } from '../../store/actions/gateways'
+import { getApiKeysList } from '../../store/actions/api-keys'
 import {
   selectSelectedGateway,
   selectSelectedGatewayId,
   selectGatewayCollaboratorsTotalCount,
   selectGatewayCollaboratorsFetching,
-  selectGatewayApiKeysTotalCount,
-  selectGatewayApiKeysFetching,
 } from '../../store/selectors/gateways'
+import { selectApiKeysTotalCount, selectApiKeysFetching } from '../../store/selectors/api-keys'
 
 const mapStateToProps = state => {
   const gtwId = selectSelectedGatewayId(state)
   const collaboratorsTotalCount = selectGatewayCollaboratorsTotalCount(state, { id: gtwId })
-  const apiKeysTotalCount = selectGatewayApiKeysTotalCount(state, { id: gtwId })
+  const apiKeysTotalCount = selectApiKeysTotalCount(state)
 
   return {
     gtwId,
@@ -38,13 +38,13 @@ const mapStateToProps = state => {
       collaboratorsTotalCount === undefined ||
       apiKeysTotalCount === undefined ||
       selectGatewayCollaboratorsFetching(state) ||
-      selectGatewayApiKeysFetching(state),
+      selectApiKeysFetching(state),
   }
 }
 const mapDispatchToProps = dispatch => ({
   loadData(gtwId) {
     dispatch(getGatewayCollaboratorsList(gtwId))
-    dispatch(getGatewayApiKeysList(gtwId))
+    dispatch(getApiKeysList('gateway', gtwId))
   },
 })
 
