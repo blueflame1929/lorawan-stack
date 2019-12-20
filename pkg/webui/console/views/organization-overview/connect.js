@@ -14,19 +14,21 @@
 
 import { connect } from 'react-redux'
 
-import { getOrganizationCollaboratorsList } from '../../store/actions/organizations'
+import { getCollaboratorsList } from '../../store/actions/collaborators'
 import { getApiKeysList } from '../../store/actions/api-keys'
 import {
   selectSelectedOrganization,
   selectSelectedOrganizationId,
-  selectOrganizationCollaboratorsTotalCount,
-  selectOrganizationCollaboratorsFetching,
 } from '../../store/selectors/organizations'
 import { selectApiKeysTotalCount, selectApiKeysFetching } from '../../store/selectors/api-keys'
+import {
+  selectCollaboratorsTotalCount,
+  selectCollaboratorsFetching,
+} from '../../store/selectors/collaborators'
 
 const mapStateToProps = state => {
   const orgId = selectSelectedOrganizationId(state)
-  const collaboratorsTotalCount = selectOrganizationCollaboratorsTotalCount(state, { id: orgId })
+  const collaboratorsTotalCount = selectCollaboratorsTotalCount(state)
   const apiKeysTotalCount = selectApiKeysTotalCount(state)
 
   return {
@@ -38,13 +40,13 @@ const mapStateToProps = state => {
       collaboratorsTotalCount === undefined ||
       apiKeysTotalCount === undefined ||
       selectApiKeysFetching(state) ||
-      selectOrganizationCollaboratorsFetching(state),
+      selectCollaboratorsFetching(state),
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   loadData(orgId) {
-    dispatch(getOrganizationCollaboratorsList(orgId))
+    dispatch(getCollaboratorsList('organization', orgId))
     dispatch(getApiKeysList('organization', orgId))
   },
 })

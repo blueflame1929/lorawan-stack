@@ -17,20 +17,22 @@ import { connect } from 'react-redux'
 import {
   selectSelectedApplication,
   selectSelectedApplicationId,
-  selectApplicationCollaboratorsTotalCount,
-  selectApplicationCollaboratorsFetching,
   selectApplicationLinkIndicator,
   selectApplicationLinkFetching,
 } from '../../store/selectors/applications'
+import {
+  selectCollaboratorsTotalCount,
+  selectCollaboratorsFetching,
+} from '../../store/selectors/collaborators'
 import { selectApiKeysTotalCount, selectApiKeysFetching } from '../../store/selectors/api-keys'
 import { selectDevicesTotalCount, selectDevicesFetching } from '../../store/selectors/devices'
-import { getApplicationCollaboratorsList } from '../../store/actions/applications'
+import { getCollaboratorsList } from '../../store/actions/collaborators'
 import { getApiKeysList } from '../../store/actions/api-keys'
 import { getApplicationLink } from '../../store/actions/link'
 
 const mapStateToProps = (state, props) => {
   const appId = selectSelectedApplicationId(state)
-  const collaboratorsTotalCount = selectApplicationCollaboratorsTotalCount(state, { id: appId })
+  const collaboratorsTotalCount = selectCollaboratorsTotalCount(state, { id: appId })
   const apiKeysTotalCount = selectApiKeysTotalCount(state)
   const devicesTotalCount = selectDevicesTotalCount(state)
 
@@ -48,13 +50,13 @@ const mapStateToProps = (state, props) => {
       selectApplicationLinkFetching(state) ||
       selectDevicesFetching(state) ||
       selectApiKeysFetching(state) ||
-      selectApplicationCollaboratorsFetching(state),
+      selectCollaboratorsFetching(state),
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   loadData(appId) {
-    dispatch(getApplicationCollaboratorsList(appId))
+    dispatch(getCollaboratorsList('application', appId))
     dispatch(getApiKeysList('application', appId))
     dispatch(getApplicationLink(appId))
   },
