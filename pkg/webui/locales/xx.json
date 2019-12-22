@@ -243,7 +243,7 @@
   "console.views.device-general-settings.collapse.index.collapse": "Xxxxxxxx",
   "console.views.device-general-settings.collapse.index.expand": "Xxxxxx",
   "console.views.device-general-settings.identity-server-form.index.deleteDevice": "Xxxxxx Xxx Xxxxxx",
-  "console.views.device-general-settings.identity-server-form.index.deleteWarning": "Xxx xxx xxxx xxx xxxx xx xxxxxx \"{deviceId}\"? Xxxxxxxx xx xxx xxxxxx xxxxxx xx xxxxxx!",
+  "console.views.device-general-settings.identity-server-form.index.deleteWarning": "Xxx xxx xxxx xxx xxxx xx xxxxxx \"{deviceId}\"? Xxxx xxxxxx xxxxxx xx xxxxxx xxx xx xxxx xxx xx xxxxxxxx xx xxxxx xxx xxx xxxxxx XX!",
   "console.views.device-general-settings.messages.isTitle": "Xxxxx",
   "console.views.device-general-settings.messages.isDescription": "Xxxxxxxxxxx, xxxxxxx xxxxxxxxxxx xxx xxxxxxxx",
   "console.views.device-general-settings.messages.isDescriptionMissing": "Xxxxxxxx Xxxxxx xx xxx xxxxxxxxx",
