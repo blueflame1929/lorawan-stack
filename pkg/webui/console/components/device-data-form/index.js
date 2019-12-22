@@ -193,7 +193,7 @@ class DeviceDataForm extends Component {
           min={16}
           max={16}
           placeholder={m.leaveBlankPlaceholder}
-          description={m.sNtwkSIKeyDescription}
+          description={m.sNwkSIKeyDescription}
           component={Input}
         />
         <Form.Field
@@ -203,7 +203,7 @@ class DeviceDataForm extends Component {
           min={16}
           max={16}
           placeholder={m.leaveBlankPlaceholder}
-          description={m.ntwkSEncKeyDescription}
+          description={m.nwkSEncKeyDescription}
           component={Input}
         />
         <Form.Field

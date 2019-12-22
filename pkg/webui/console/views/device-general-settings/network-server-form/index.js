@@ -272,7 +272,7 @@ const NetworkServerForm = React.memo(props => {
               min={16}
               max={16}
               placeholder={m.leaveBlankPlaceholder}
-              description={m.sNtwkSIKeyDescription}
+              description={m.sNwkSIKeyDescription}
               component={Input}
             />
           )}
@@ -284,7 +284,7 @@ const NetworkServerForm = React.memo(props => {
               min={16}
               max={16}
               placeholder={m.leaveBlankPlaceholder}
-              description={m.ntwkSEncKeyDescription}
+              description={m.nwkSEncKeyDescription}
               component={Input}
             />
           )}
